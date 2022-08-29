@@ -1,8 +1,8 @@
 package tienda.Servicios;
 
-import java.util.ArrayList;
+
 import java.util.Collection;
-import tienda.Entidades.Fabricante;
+
 import tienda.Entidades.Producto;
 
 import tienda.persistencia.productoDAO;
@@ -49,7 +49,7 @@ public class ProductoService {
         }
     }
 
-    public void modificarProducto(int codigo, String nombre, double precio, int codigoFabricante) throws Exception {
+    public Producto modificarProducto(int codigo, String nombre, double precio, int codigoFabricante) throws Exception {
 
         try {
          
@@ -71,16 +71,17 @@ public class ProductoService {
                 throw new Exception("Debe indicar el fabricante");
             }
             //Buscamos
-            Producto producto = buscarProductoPorNombre(nombre);
+            Producto producto =dao.buscarProductoPorCodigo(codigo);
             producto.setNombre(nombre);
             producto.setPrecio(precio);
             producto.setCodigoFabricante(codigoFabricante);
 
             dao.modificarProducto(producto);
+            return producto;
         } catch (Exception e) {
             throw e;
         }
-
+        
     }
 
     public Collection<Producto> listarProductosPorNombre(String nombre) throws Exception {
@@ -122,25 +123,7 @@ public class ProductoService {
         }
     }
 
-//    public void imprimirProductos() throws Exception {
-//
-//        try {
-//
-//            //Listamos los productos
-//            Collection<Producto> productos = listarProductos();
-//
-//            //Imprimimos los productos
-//            if (productos.isEmpty()) {
-//                throw new Exception("No existen productos para imprimir");
-//            } else {
-//                for (Producto P : productos) {
-//                    System.out.println(P.toString());
-//                }
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        }
-//    }
+
 
     public Collection<ProductoDTO> listarPorNombreYPrecio() throws Exception {
 
@@ -162,26 +145,7 @@ public class ProductoService {
         }
     }
 
-//    public void imprimirProductosNyP() throws Exception {
-//
-//        try {
-//
-//            //Listamos los productos
-//            Collection<ProductoDTO> productos = listarPorNombreYPrecio();
-//
-//            //Imprimimos los productos
-//           
-//    if (productos.isEmpty()) {
-//                throw new Exception("No existen productos para imprimir");
-//            } else {
-//                for (ProductoDTO P : productos) {
-//                    System.out.println(P.toString());
-//                }
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        } 
-//    }
+
 
     public Collection<Producto> listarProductosEntrePrecios() throws Exception {
 
@@ -202,25 +166,7 @@ public class ProductoService {
         }
     }
 
-//    public void imprimirProductosPorPrecio() throws Exception {
-//
-//        try {
-//
-//            //Listamos los productos
-//            Collection<Producto> productos = listarProductosEntrePrecios();
-//
-//            //Imprimimos los productos
-//            if (productos.isEmpty()) {
-//                throw new Exception("No existen productos para imprimir");
-//            } else {
-//                for (Producto P : productos) {
-//                    System.out.println(P.toString());
-//                }
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        }
-//    }
+
 
     public ProductoDTO buscarPorNombreyPrecioB() throws Exception {
 

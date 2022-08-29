@@ -32,13 +32,33 @@ public final class productoDAO extends DAO {
                 throw new Exception("Debe indicar el producto que desea modificar");
             }
             String sql = "UPDATE Producto SET "
-                    + " nombre = '" + producto.getNombre() + "' , precio = '" + producto.getPrecio() + "' , codigoFabricante = " + producto.getCodigoFabricante()
+                    + " nombre = '" + producto.getNombre() + "' , precio = '" + producto.getPrecio() + "' , codigo_Fabricante = " + producto.getCodigoFabricante()
                     + " WHERE codigo = '" + producto.getCodigo() + "'";
             insertarModificarEliminar(sql);
         } catch (Exception e) {
             throw e;
         } finally {
             desconectarBase();
+        }
+    }
+    public Producto buscarProductoPorCodigo(int codigo) throws Exception {
+        try {
+            String sql = "SELECT * FROM Producto WHERE codigo = " + codigo + "";
+            consultarBase(sql);
+            Producto producto = null;
+            while (resultado.next()) {
+                producto = new Producto();
+                producto.setCodigo(resultado.getInt(1));
+                producto.setNombre(resultado.getString(2));
+                producto.setPrecio(resultado.getDouble(3));
+                producto.setCodigoFabricante(resultado.getInt(4));
+               
+            }
+            desconectarBase();
+            return producto;
+        } catch (Exception e) {
+            desconectarBase();
+            throw e;
         }
     }
 
@@ -66,10 +86,7 @@ public final class productoDAO extends DAO {
                 producto.setPrecio(resultado.getInt(3));
                 producto.setCodigoFabricante(resultado.getInt(4));
                 productos.add(producto);
-                //   Fabricante fabricante =fabricanteService.buscarFabricantePorCodigo(codigo);
-                //  producto.setCodigoFabricante(fabricante.getCodigo());
-                //   int r = producto.getCodigoFabricante();
-                //  r = resultado.getInt(4);
+               
             }
             desconectarBase();
             return productos;
@@ -162,10 +179,7 @@ public final class productoDAO extends DAO {
                 productoDto.setNombre(resultado.getString(1));
                 productoDto.setPrecio(resultado.getInt(2));
                  System.out.println(productoDto);
-                //   Fabricante fabricante =fabricanteService.buscarFabricantePorCodigo(codigo);
-                //  producto.setCodigoFabricante(fabricante.getCodigo());
-                //   int r = producto.getCodigoFabricante();
-                //  r = resultado.getInt(4);
+               
             }
             desconectarBase();
             return productoDto;

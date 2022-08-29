@@ -1,10 +1,10 @@
 package tienda;
 
 import java.util.Scanner;
-import tienda.Entidades.Fabricante;
+
 import tienda.Entidades.Producto;
 import tienda.Servicios.FabricanteService;
-import tienda.Servicios.ProductoDTO;
+
 import tienda.Servicios.ProductoService;
 
 public class tienda {
@@ -14,6 +14,7 @@ public class tienda {
         FabricanteService f1 = new FabricanteService();
         Scanner leer = new Scanner(System.in);
         int Opcion;
+
         boolean EXIT = false;
 
         while (!EXIT) {
@@ -25,8 +26,8 @@ public class tienda {
             System.out.println("3. Listar aquellos productos que su precio esté entre 120 y 202.");
             System.out.println("4. Buscar y listar todos los Portátiles de la tabla producto.");
             System.out.println("5. Listar el nombre y el precio del producto más barato.");
-            System.out.println("6.Ingresar un producto a la base de datos.");
-            System.out.println("7.Ingresar un fabricante a la base de datos");
+            System.out.println("6.crear un producto e ingresarlo a la base de datos.");
+            System.out.println("7.crear un fabricante e Ingresarlo a la base de datos");
             System.out.println("8. Editar un producto.");
             System.out.println("9. EXIT");
 
@@ -43,7 +44,7 @@ public class tienda {
                     break;
 
                 case 4:
-                     p1.listarProductosPorNombre("Portátil");
+                    p1.listarProductosPorNombre("Portátil");
                     break;
 
                 case 5:
@@ -51,19 +52,43 @@ public class tienda {
                     break;
 
                 case 6:
+                    System.out.println("ingrese el nombre del producto");
+                    String nombre = leer.next();
+                    System.out.println(" ingrese el precio del producto");
+                    double p = leer.nextDouble();
+                    System.out.println("ingrese el codigo de fabricante");
+                    int cf = leer.nextInt();
+                    p1.crearProducto(nombre, p, cf);
 
                     break;
 
                 case 7:
-
+                    System.out.println("ingrese el codigo ");
+                    int c = leer.nextInt();
+                    
+                    System.out.println(" ingrese el nombre del fabricante");
+                    String f = leer.next();
+                    
+                    f1.crearFabricante(c,f);
                     break;
 
                 case 8:
-
+                    System.out.println(" ingrese el codigo del producto a modificar");
+                     int codigo =leer.nextInt();
+                     System.out.println("ingrese el nombre del producto");
+                     nombre = leer.next();
+                     System.out.println("ingrese el precio");
+                     double precio = leer.nextDouble();
+                    System.out.println("ingrese el codigo del fabricante");
+                    int codigoF = leer.nextInt();
+                    Producto producto = p1.modificarProducto(codigo, nombre,precio, codigoF);
+                    System.out.println(producto);
+                   
                     break;
 
                 case 9:
                     EXIT = true;
+                    System.out.println("muchas gracias por elegir nuestro programa");
 
                     break;
 
@@ -71,20 +96,7 @@ public class tienda {
 
         }
 
-        // Fabricante fabricante = f1.buscarFabricantePorNombre("eklflk");
-        //  System.out.println(fabricante);
-        // p1.listarProductos();
-        //  p1.listarPorNombreYPrecio();
-        // p1.crearProducto("monitor",500 ,5);
-          //p1.listarProductosPorNombre("Portátil");
-           
-        // p1.buscarPorNombreyPrecioB();
-         p1.buscarPorNombreyPrecioB();
-        
-        // p1.crearProducto("gustavotoscano", 120, 3);
-        // f1.crearFabricante(50, "gustavotoscano");
-        //  p1.buscarPorNombreyPrecioB();
-       //  p1.listarProductosEntrePrecios();
+      
     }
 
 }
