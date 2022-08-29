@@ -93,8 +93,8 @@ public class ProductoService {
             }
             Collection<Producto> productos = dao.listarProductosPorNombre(nombre);
 
-            if (productos == null) {
-                throw new Exception("No se encontró un producto con ese codigo ");
+            if (productos == null || productos.isEmpty()) {
+                throw new Exception("No se encontró un producto con ese nombre ");
             }
             System.out.println(productos);
             return productos;
